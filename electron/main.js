@@ -26,7 +26,14 @@ function createWindow() {
     ? 'http://localhost:8080' // Vite dev server
     : `file://${path.join(__dirname, '../dist/index.html')}`; // Production build
   
-  mainWindow.loadURL(appUrl);
+  console.log('Loading URL:', appUrl);
+  
+  mainWindow.loadURL(appUrl).catch(err => {
+    console.error('Failed to load URL:', err);
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch(err => {
+      console.error('Failed to load file:', err);
+    });
+  });
 
   // Open DevTools automatically in development mode
   if (isDev) {

@@ -42,18 +42,20 @@
     "passwordResetDescription": "Esta función enviaría un correo electrónico para restablecer la contraseña en una aplicación real"
   },
   "dashboard": {
-    "welcome": "Bienvenido, {{name}}",
-    "overview": "Aquí hay una visión general de su sistema de gestión de documentos",
-    "totalDocuments": "Total de documentos",
-    "pendingDocuments": "Documentos pendientes",
-    "processedDocuments": "Documentos procesados",
-    "requiresAttention": "Requiere atención",
-    "allTime": "Todo el tiempo",
-    "awaitingAction": "Esperando acción",
-    "completed": "Completado",
-    "urgentItems": "Elementos urgentes",
-    "recentDocuments": "Documentos recientes",
-    "quickActions": "Acciones rápidas"
+    "title": "Panel de Control",
+    "description": "Resumen de tus actividades de seguimiento de correo",
+    "totalMailItems": "Total de Elementos",
+    "totalMailItemsDesc": "Número total de elementos de correo rastreados",
+    "totalTemplates": "Total de Plantillas",
+    "totalTemplatesDesc": "Número de plantillas de correo",
+    "totalMembers": "Total de Miembros",
+    "totalMembersDesc": "Miembros de la organización",
+    "totalConnections": "Total de Conexiones",
+    "totalConnectionsDesc": "Organizaciones conectadas",
+    "mailItemsByTemplate": "Elementos por Plantilla",
+    "recentActivity": "Actividad Reciente",
+    "properties": "propiedades",
+    "noRecentActivity": "Sin actividad reciente"
   },
   "sendInterface": {
     "title": "Interfaz de envío",
