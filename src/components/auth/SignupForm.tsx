@@ -9,11 +9,13 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 
-const LoginForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -23,16 +25,16 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      await signup(email, password, firstName, lastName);
       toast({
-        title: t('auth.loginSuccess'),
-        description: t('auth.welcomeBack'),
+        title: t('auth.signupSuccess'),
+        description: t('auth.welcomeToMailMinder'),
       });
       navigate("/dashboard");
     } catch (error) {
       toast({
-        title: t('auth.loginFailed'),
-        description: t('auth.checkCredentials'),
+        title: t('auth.signupFailed'),
+        description: t('auth.signupErrorMessage'),
         variant: "destructive",
       });
     } finally {
@@ -44,6 +46,30 @@ const LoginForm = () => {
     <Card className="glass-panel animate-scale-in">
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4 pt-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="firstName">{t('auth.firstName')}</Label>
+              <Input
+                id="firstName"
+                placeholder={t('auth.firstNamePlaceholder')}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="bg-white/50"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lastName">{t('auth.lastName')}</Label>
+              <Input
+                id="lastName"
+                placeholder={t('auth.lastNamePlaceholder')}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="bg-white/50"
+              />
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="email">{t('auth.email')}</Label>
             <Input
@@ -57,22 +83,7 @@ const LoginForm = () => {
             />
           </div>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">{t('auth.password')}</Label>
-              <a
-                href="#"
-                className="text-sm text-primary hover:underline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toast({
-                    title: t('auth.passwordReset'),
-                    description: t('auth.passwordResetDescription'),
-                  });
-                }}
-              >
-                {t('auth.forgotPassword')}
-              </a>
-            </div>
+            <Label htmlFor="password">{t('auth.password')}</Label>
             <Input
               id="password"
               type="password"
@@ -85,7 +96,7 @@ const LoginForm = () => {
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('auth.loggingIn') : t('auth.signIn')}
+            {isLoading ? t('auth.signingUp') : t('auth.signUp')}
           </Button>
         </CardFooter>
       </form>
@@ -93,4 +104,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;

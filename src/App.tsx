@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import Layout from "@/components/Layout";
-import LoginForm from "@/components/auth/LoginForm";
+import AuthPage from "@/pages/AuthPage";
 import Index from "@/pages/Index";
 import Dashboard from "@/pages/Dashboard";
 import SendInterface from "@/pages/SendInterface";
@@ -28,7 +28,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
-                <Route path="login" element={<LoginForm />} />
+                <Route path="login" element={<AuthPage />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="dashboard/send" element={<SendInterface />} />
                 <Route path="dashboard/tab2" element={<div className="container mx-auto px-4">Tab 2 Content</div>} />

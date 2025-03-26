@@ -7,6 +7,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  signup: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
   logout: () => Promise<void>;
   updateUserLanguage: (language: LanguageCode) => Promise<void>;
 }
@@ -61,6 +62,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const signup = async (email: string, password: string, firstName: string, lastName: string) => {
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      // Mock user creation and then log them in
+      setUser({
+        id: `user-${Math.floor(Math.random() * 1000)}`,
+        email,
+        firstName,
+        lastName,
+        role: UserRole.MEMBER, // Default role for new users
+        organizationId: "org-1",
+        permissions: [Permission.READ], // Default permissions
+        language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
+      });
+    } catch (error) {
+      console.error("Signup failed:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
     try {
@@ -91,7 +117,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, updateUserLanguage }}>
+    <AuthContext.Provider value={{ user, loading, login, signup, logout, updateUserLanguage }}>
       {children}
     </AuthContext.Provider>
   );
