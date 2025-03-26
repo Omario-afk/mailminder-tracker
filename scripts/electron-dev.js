@@ -18,11 +18,13 @@ const viteProcess = spawn('npm', ['run', 'dev'], {
 // Wait for Vite dev server to be ready
 waitOn({ resources: ['http-get://localhost:8080'], timeout: 30000 })
   .then(() => {
-    // Start Electron
-    const electronProcess = spawn(electron, [path.join(__dirname, '../electron/main.js')], {
+    // Start Electron with proper path handling
+    const electronPath = path.join(__dirname, '../electron/main.js');
+    const electronProcess = spawn(electron, [electronPath], {
       shell: true,
       stdio: 'inherit',
-      env: { ...process.env, NODE_ENV: 'development' }
+      env: { ...process.env, NODE_ENV: 'development' },
+      windowsHide: true
     });
 
     electronProcess.on('close', () => {
