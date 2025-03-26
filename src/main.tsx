@@ -3,14 +3,13 @@ import { createRoot } from 'react-dom/client'
 import React from 'react'
 import App from './App.tsx'
 import './index.css'
+import i18next from 'i18next'
 import './i18n' // Import i18n configuration
 
 // Wait for i18n to initialize before rendering the app
-// This prevents the "Cannot read properties of null" error
-import i18next from 'i18next'
-
 const renderApp = () => {
-  createRoot(document.getElementById("root")!).render(
+  const root = createRoot(document.getElementById("root")!);
+  root.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
@@ -21,6 +20,7 @@ const renderApp = () => {
 i18next
   .init()
   .then(() => {
+    console.log("i18next initialized successfully");
     renderApp();
   })
   .catch(error => {

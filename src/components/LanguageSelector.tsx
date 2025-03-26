@@ -13,15 +13,34 @@ import { availableLanguages, LanguageCode } from '@/i18n';
 import { useAuth } from '@/context/AuthContext';
 
 const LanguageSelector = () => {
-  const { t, i18n } = useTranslation();
+  // Use try-catch to handle potential i18n initialization issues
+  let translationHook;
+  try {
+    translationHook = useTranslation();
+  } catch (error) {
+    console.error("Translation hook error:", error);
+    // Provide fallback translation function
+    return (
+      <Button variant="ghost" size="icon" className="h-9 w-9">
+        <Globe className="h-4 w-4" />
+        <span className="sr-only">Select language</span>
+      </Button>
+    );
+  }
+  
+  const { t, i18n } = translationHook;
   const { user, updateUserLanguage } = useAuth();
   
   const changeLanguage = async (code: LanguageCode) => {
-    await i18n.changeLanguage(code);
-    
-    // If user is logged in, update their language preference
-    if (user) {
-      updateUserLanguage(code);
+    try {
+      await i18n.changeLanguage(code);
+      
+      // If user is logged in, update their language preference
+      if (user) {
+        updateUserLanguage(code);
+      }
+    } catch (error) {
+      console.error("Error changing language:", error);
     }
   };
   
@@ -31,6 +50,8 @@ const LanguageSelector = () => {
   
   // Add RTL direction for Arabic
   React.useEffect(() => {
+    if (!i18n.language) return;
+    
     document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     
     // Add specific class for RTL styling if needed
@@ -46,7 +67,7 @@ const LanguageSelector = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-9 w-9">
           <Globe className="h-4 w-4" />
-          <span className="sr-only">{t('language.select')}</span>
+          <span className="sr-only">{t('language.select', 'Select language')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
