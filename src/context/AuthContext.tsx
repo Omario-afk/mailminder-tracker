@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { User } from "../types";
+import { User, UserRole, Permission } from "../types";
 
 interface AuthContextType {
   user: User | null;
@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         firstName: "Demo",
         lastName: "User",
-        role: email.includes("director") ? "director" : "member",
+        role: email.includes("director") ? UserRole.DIRECTOR : UserRole.MEMBER,
         organizationId: "org-1",
-        permissions: ["read", "edit", "delete"],
+        permissions: [Permission.READ, Permission.EDIT, Permission.DELETE],
       });
     } catch (error) {
       console.error("Login failed:", error);
