@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -103,14 +103,8 @@ const LoginPage = () => {
                 )}
               />
               <Button type="submit" className="w-full">
-                {t('auth.signIn')}
+                {t('auth.login')}
               </Button>
-              <div className="text-center text-sm">
-                {t('auth.accessYourAccount')}{' '}
-                <Link to="/signup" className="text-primary hover:underline">
-                  {t('auth.signUp')}
-                </Link>
-              </div>
             </form>
           </Form>
         </CardContent>

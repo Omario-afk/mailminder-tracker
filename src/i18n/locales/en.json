@@ -78,19 +78,7 @@
       "newTemplate": "New Template",
       "newOrganization": "New Organization",
       "newConnection": "New Connection"
-    },
-    "description": "Overview of your mail tracking activities",
-    "totalMailItems": "Total Mail Items",
-    "totalMailItemsDesc": "Total number of tracked mail items",
-    "totalTemplates": "Total Templates",
-    "totalTemplatesDesc": "Number of mail templates",
-    "totalMembers": "Total Members",
-    "totalMembersDesc": "Organization members",
-    "totalConnections": "Total Connections",
-    "totalConnectionsDesc": "Connected organizations",
-    "mailItemsByTemplate": "Mail Items by Template",
-    "properties": "properties",
-    "noRecentActivity": "No recent activity"
+    }
   },
   "sendInterface": {
     "title": "Interface d'envoi",

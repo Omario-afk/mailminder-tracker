@@ -1,10 +1,6 @@
-import { app, BrowserWindow, shell } from 'electron';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+const { app, BrowserWindow, shell } = require('electron');
+const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow;
@@ -26,14 +22,7 @@ function createWindow() {
     ? 'http://localhost:8080' // Vite dev server
     : `file://${path.join(__dirname, '../dist/index.html')}`; // Production build
   
-  console.log('Loading URL:', appUrl);
-  
-  mainWindow.loadURL(appUrl).catch(err => {
-    console.error('Failed to load URL:', err);
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch(err => {
-      console.error('Failed to load file:', err);
-    });
-  });
+  mainWindow.loadURL(appUrl);
 
   // Open DevTools automatically in development mode
   if (isDev) {
