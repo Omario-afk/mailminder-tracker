@@ -35,7 +35,7 @@ type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const { signUp } = useAuth();
+  const { signup } = useAuth();
   const { t } = useTranslation();
 
   const form = useForm<SignUpFormValues>({
@@ -50,7 +50,7 @@ const SignUpPage = () => {
 
   const onSubmit = async (data: SignUpFormValues) => {
     try {
-      await signUp(data.email, data.password, data.firstName, data.lastName);
+      await signup(data.email, data.password, data.firstName, data.lastName);
       toast.success(t('auth.signupSuccess'));
       navigate('/login');
     } catch (error) {
