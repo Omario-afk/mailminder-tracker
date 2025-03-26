@@ -12,6 +12,7 @@ import NetworkConnections from '@/components/network/NetworkConnections';
 import MailTracking from '@/components/mail/MailTracking';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import LoginPage from '@/components/auth/LoginPage';
+import SignUpPage from '@/components/auth/SignUpPage';
 import { AuthProvider } from '@/context/AuthContext';
 import { OrganizationProvider } from '@/context/OrganizationContext';
 import '@/i18n/config';
@@ -23,6 +24,7 @@ const App = () => {
         <OrganizationProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
             <Route
               path="/"
               element={
