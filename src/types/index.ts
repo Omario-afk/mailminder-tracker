@@ -1,69 +1,130 @@
+export type UserRole = 'director' | 'admin' | 'member';
+export type Permission = 'READ' | 'WRITE' | 'DELETE' | 'MANAGE_USERS' | 'MANAGE_TEMPLATES';
+export type MailStatus = 'sent' | 'received' | 'in-transit';
+export type NetworkConnectionStatus = 'pending' | 'active' | 'blocked';
+export type PropertyType = 'text' | 'number' | 'date' | 'dropdown';
+
 export type User = {
   id: string;
   email: string;
   firstName?: string;
   lastName?: string;
   role: UserRole;
-  organizationId: string;
+  organizationId?: string;
   permissions: Permission[];
   language?: string;
 };
 
-export enum UserRole {
-  DIRECTOR = "director",
-  MEMBER = "member"
-}
-
-export enum Permission {
-  READ = "read",
-  EDIT = "edit",
-  DELETE = "delete"
-}
-
 export type Organization = {
   id: string;
   name: string;
-  createdBy: string;
-  createdAt: Date;
-};
-
-export enum DocumentScope {
-  REGIONAL = "regionale",
-  PRINCIPAL = "principal",
-  COMMUNAL = "communal"
-}
-
-export enum DocumentType {
-  REUNION = "reunion",
-  MISSION = "mission",
-  VISITE = "visite",
-  FEP = "fep",
-  CPC = "cpc"
-}
-
-export type Document = {
-  id: string;
-  title: string;
-  scope: DocumentScope;
-  sender: string;
-  issueDate: Date;
-  receiptDate: Date;
-  receiptNumber: string;
-  subject: string;
-  type: DocumentType;
-  meetingDate?: Date;
-  location?: string;
-  time?: string;
-  status: DocumentStatus;
-  createdBy: string;
-  organizationId: string;
+  directorId: string;
+  description?: string;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export enum DocumentStatus {
-  DRAFT = "draft",
-  SENT = "sent",
-  RECEIVED = "received",
-  ARCHIVED = "archived"
-}
+export type OrganizationMember = {
+  id: string;
+  userId: string;
+  orgId: string;
+  role: 'admin' | 'member';
+  joinedAt: Date;
+};
+
+export type MailPropertyTemplate = {
+  id: string;
+  orgId: string;
+  name: string;
+  description?: string;
+  isNetworkShared: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type MailPropertyDefinition = {
+  id: string;
+  templateId: string;
+  name: string;
+  type: PropertyType;
+  isRequired: boolean;
+  options?: string[]; // For dropdown type
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type NetworkConnection = {
+  id: string;
+  orgId1: string;
+  orgId2: string;
+  status: NetworkConnectionStatus;
+  sharedTemplateId?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type MailEntry = {
+  id: string;
+  orgId: string;
+  templateId: string;
+  senderId: string;
+  recipientName?: string;
+  recipientAddress?: string;
+  trackingNumber?: string;
+  status: MailStatus;
+  receivedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type MailPropertyValue = {
+  id: string;
+  mailId: string;
+  propertyDefId: string;
+  value?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+// Database types for Supabase
+export type Database = {
+  public: {
+    Tables: {
+      organizations: {
+        Row: Organization;
+        Insert: Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      organization_members: {
+        Row: OrganizationMember;
+        Insert: Omit<OrganizationMember, 'id' | 'joinedAt'>;
+        Update: Partial<Omit<OrganizationMember, 'id' | 'joinedAt'>>;
+      };
+      mail_property_templates: {
+        Row: MailPropertyTemplate;
+        Insert: Omit<MailPropertyTemplate, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<MailPropertyTemplate, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      mail_property_definitions: {
+        Row: MailPropertyDefinition;
+        Insert: Omit<MailPropertyDefinition, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<MailPropertyDefinition, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      network_connections: {
+        Row: NetworkConnection;
+        Insert: Omit<NetworkConnection, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<NetworkConnection, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      mail_entries: {
+        Row: MailEntry;
+        Insert: Omit<MailEntry, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<MailEntry, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      mail_property_values: {
+        Row: MailPropertyValue;
+        Insert: Omit<MailPropertyValue, 'id' | 'createdAt' | 'updatedAt'>;
+        Update: Partial<Omit<MailPropertyValue, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+    };
+  };
+};

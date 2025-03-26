@@ -1,4 +1,3 @@
-
 {
   "common": {
     "loading": "Loading...",
@@ -11,7 +10,12 @@
     "cancel": "Cancel",
     "submit": "Submit",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "add": "Add",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "noData": "No data available."
   },
   "auth": {
     "email": "Email",
@@ -35,7 +39,13 @@
     "signingUp": "Signing up...",
     "accessYourAccount": "Sign in to your account or create a new one",
     "passwordReset": "Password Reset",
-    "passwordResetDescription": "This feature would send a password reset email in a real application"
+    "passwordResetDescription": "This feature would send a password reset email in a real application",
+    "loginDescription": "Sign in to your account",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "loginError": "Failed to login. Please check your credentials.",
+    "logoutSuccess": "Logged out successfully",
+    "logoutError": "Failed to logout"
   },
   "dashboard": {
     "welcome": "Welcome, {{name}}",
@@ -49,7 +59,26 @@
     "completed": "Completed",
     "urgentItems": "Urgent items",
     "recentDocuments": "Recent Documents",
-    "quickActions": "Quick Actions"
+    "quickActions": "Quick Actions",
+    "title": "Dashboard",
+    "organizations": "Organizations",
+    "templates": "Templates",
+    "connections": "Connections",
+    "mailItems": "Mail Items",
+    "recentActivity": "Recent Activity",
+    "recentActivityDescription": "Latest updates from your organization",
+    "activity": {
+      "newMail": "New mail item added",
+      "newTemplate": "New template created",
+      "newConnection": "New connection established",
+      "newOrganization": "New organization created"
+    },
+    "actions": {
+      "newMail": "New Mail Item",
+      "newTemplate": "New Template",
+      "newOrganization": "New Organization",
+      "newConnection": "New Connection"
+    }
   },
   "sendInterface": {
     "title": "Interface d'envoi",
@@ -124,5 +153,104 @@
     "fr": "French",
     "ar": "Arabic",
     "es": "Spanish"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "organizations": "Organizations",
+    "templates": "Templates",
+    "network": "Network",
+    "mail": "Mail",
+    "settings": "Settings",
+    "noOrganization": "No Organization Selected"
+  },
+  "organizations": {
+    "title": "Organizations",
+    "create": "Create Organization",
+    "createDescription": "Create a new organization to manage your mail tracking.",
+    "name": "Organization Name",
+    "namePlaceholder": "Enter organization name",
+    "nameDescription": "A unique name for your organization",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter organization description",
+    "descriptionDescription": "A brief description of your organization",
+    "members": "Members",
+    "memberCount": "{{count}} member(s)",
+    "settings": "Settings",
+    "createSuccess": "Organization created successfully",
+    "updateSuccess": "Organization updated successfully",
+    "deleteSuccess": "Organization deleted successfully",
+    "noOrganizations": "No organizations found"
+  },
+  "templates": {
+    "title": "Templates",
+    "create": "Create Template",
+    "createDescription": "Create a new template for mail tracking.",
+    "name": "Template Name",
+    "namePlaceholder": "Enter template name",
+    "nameDescription": "A unique name for your template",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter template description",
+    "descriptionDescription": "A brief description of your template",
+    "networkShared": "Network Shared",
+    "networkSharedDescription": "Share this template with connected organizations",
+    "properties": "Properties",
+    "propertiesDescription": "Define the properties for this template",
+    "addProperty": "Add Property",
+    "addPropertyDescription": "Add a new property to this template",
+    "propertyName": "Property Name",
+    "propertyNamePlaceholder": "Enter property name",
+    "propertyNameDescription": "A unique name for this property",
+    "propertyType": "Property Type",
+    "propertyTypePlaceholder": "Select property type",
+    "propertyTypeDescription": "The type of data this property will store",
+    "propertyTypeText": "Text",
+    "propertyTypeNumber": "Number",
+    "propertyTypeDate": "Date",
+    "propertyTypeBoolean": "Boolean",
+    "propertyTypeSelect": "Select",
+    "propertyRequired": "Required",
+    "propertyRequiredDescription": "Make this property required",
+    "createSuccess": "Template created successfully",
+    "updateSuccess": "Template updated successfully",
+    "deleteSuccess": "Template deleted successfully",
+    "propertyAddSuccess": "Property added successfully",
+    "propertyDeleteSuccess": "Property deleted successfully",
+    "noTemplates": "No templates found",
+    "noProperties": "No properties defined",
+    "noDescription": "No description provided",
+    "required": "Required"
+  },
+  "network": {
+    "title": "Network Connections",
+    "addConnection": "Add Connection",
+    "addConnectionDescription": "Connect with another organization",
+    "organizationId": "Organization ID",
+    "organizationIdPlaceholder": "Enter organization ID",
+    "organizationIdDescription": "The unique ID of the organization to connect with",
+    "organizationName": "Organization Name",
+    "status": "Status",
+    "status.active": "Active",
+    "status.pending": "Pending",
+    "status.rejected": "Rejected",
+    "connectedAt": "Connected At",
+    "connectionCreateSuccess": "Connection request sent successfully",
+    "connectionDeleteSuccess": "Connection removed successfully",
+    "noConnections": "No connections found",
+    "noDescription": "No description provided"
+  },
+  "mail": {
+    "title": "Mail Tracking",
+    "addItem": "Add Mail Item",
+    "addItemDescription": "Add a new mail item to track",
+    "template": "Template",
+    "templatePlaceholder": "Select a template",
+    "templateDescription": "Choose a template for this mail item",
+    "selectValue": "Select a value",
+    "searchPlaceholder": "Search mail items...",
+    "filterByTemplate": "Filter by template",
+    "allTemplates": "All Templates",
+    "createSuccess": "Mail item created successfully",
+    "deleteSuccess": "Mail item deleted successfully",
+    "noItems": "No mail items found"
   }
 }
