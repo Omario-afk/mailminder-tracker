@@ -1,26 +1,40 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
+import Layout from "@/components/Layout";
+import LoginForm from "@/components/auth/LoginForm";
+import Index from "@/pages/Index";
+import Dashboard from "@/pages/Dashboard";
+import SendInterface from "@/pages/SendInterface";
+import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Index />} />
+              <Route path="login" element={<LoginForm />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="dashboard/send" element={<SendInterface />} />
+              <Route path="dashboard/tab2" element={<div className="container mx-auto px-4">Tab 2 Content</div>} />
+              <Route path="dashboard/tab3" element={<div className="container mx-auto px-4">Tab 3 Content</div>} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+        <Sonner />
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
