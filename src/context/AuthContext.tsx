@@ -1,12 +1,14 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { User, UserRole, Permission } from "../types";
+import { LanguageCode } from "../i18n";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  updateUserLanguage: (language: LanguageCode) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -49,6 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         role: email.includes("director") ? UserRole.DIRECTOR : UserRole.MEMBER,
         organizationId: "org-1",
         permissions: [Permission.READ, Permission.EDIT, Permission.DELETE],
+        language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
       });
     } catch (error) {
       console.error("Login failed:", error);
@@ -72,8 +75,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const updateUserLanguage = async (language: LanguageCode) => {
+    try {
+      if (user) {
+        // In a real app, this would be an API call to update the user's language preference
+        setUser({ ...user, language });
+        
+        // For now, we'll just update localStorage
+        localStorage.setItem("i18nextLng", language);
+      }
+    } catch (error) {
+      console.error("Failed to update language preference:", error);
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, updateUserLanguage }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,0 +1,111 @@
+
+{
+  "common": {
+    "loading": "جار التحميل...",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم",
+    "welcome": "مرحبًا، {{name}}",
+    "viewAll": "عرض الكل",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "error": "خطأ",
+    "success": "نجاح"
+  },
+  "auth": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "signUp": "التسجيل",
+    "forgotPassword": "نسيت كلمة المرور؟"
+  },
+  "dashboard": {
+    "welcome": "مرحبًا، {{name}}",
+    "overview": "هنا نظرة عامة على نظام إدارة المستندات الخاص بك",
+    "totalDocuments": "إجمالي المستندات",
+    "pendingDocuments": "المستندات المعلقة",
+    "processedDocuments": "المستندات المعالجة",
+    "requiresAttention": "يتطلب الاهتمام",
+    "allTime": "كل الأوقات",
+    "awaitingAction": "في انتظار الإجراء",
+    "completed": "مكتمل",
+    "urgentItems": "العناصر العاجلة",
+    "recentDocuments": "المستندات الحديثة",
+    "quickActions": "إجراءات سريعة"
+  },
+  "sendInterface": {
+    "title": "واجهة الإرسال",
+    "import": "استيراد",
+    "scan": "مسح ضوئي",
+    "assignInstructions": "تعيين التعليمات",
+    "save": "حفظ",
+    "transmit": "إرسال",
+    "scope": "النطاق",
+    "regional": "إقليمي",
+    "principal": "رئيسي",
+    "communal": "مجتمعي",
+    "issuer": "المُصدر",
+    "issueDate": "تاريخ الإصدار",
+    "receptionDate": "تاريخ الاستلام",
+    "receptionNumber": "رقم الاستلام",
+    "subject": "الموضوع",
+    "meetingType": "نوع الاجتماع",
+    "meeting": "اجتماع",
+    "mission": "مهمة",
+    "visit": "زيارة",
+    "fep": "FEP",
+    "cpc": "CPC",
+    "date": "التاريخ",
+    "location": "الموقع",
+    "time": "الوقت",
+    "saveAsDraft": "حفظ كمسودة"
+  },
+  "nav": {
+    "sendInterface": "واجهة الإرسال",
+    "tab2": "التبويب 2",
+    "tab3": "التبويب 3",
+    "messages": "الرسائل",
+    "settings": "الإعدادات"
+  },
+  "landing": {
+    "hero": {
+      "tagline": "إدارة البريد المادي المبسطة",
+      "title": "تتبع المستندات لمكان العمل الحديث",
+      "description": "يساعد MailMinder المؤسسات على تتبع وإدارة وتوزيع البريد المادي والمستندات بكفاءة مع واجهة جميلة وبديهية.",
+      "getStarted": "البدء",
+      "learnMore": "معرفة المزيد",
+      "goToDashboard": "الذهاب إلى لوحة التحكم"
+    },
+    "features": {
+      "title": "الميزات الرئيسية",
+      "description": "يوفر MailMinder جميع الأدوات التي تحتاجها مؤسستك لإدارة المستندات المادية بكفاءة",
+      "tracking": {
+        "title": "تتبع المستندات",
+        "description": "تتبع دورة حياة المستندات المادية بالكامل من الاستلام إلى الأرشفة."
+      },
+      "teamManagement": {
+        "title": "إدارة الفريق",
+        "description": "إنشاء المؤسسات وتعيين أذونات تفصيلية لأعضاء الفريق."
+      },
+      "secureStorage": {
+        "title": "تخزين آمن",
+        "description": "تخزين البيانات الوصفية للمستندات بشكل آمن وتتبع السجل باستخدام قاعدة البيانات القوية لدينا."
+      }
+    },
+    "footer": {
+      "rights": "© {{year}} MailMinder. جميع الحقوق محفوظة.",
+      "privacy": "الخصوصية",
+      "terms": "الشروط",
+      "contact": "اتصل بنا"
+    }
+  },
+  "language": {
+    "name": "العربية",
+    "select": "اختر اللغة",
+    "en": "الإنجليزية",
+    "fr": "الفرنسية",
+    "ar": "العربية",
+    "es": "الإسبانية"
+  }
+}

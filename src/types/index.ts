@@ -1,12 +1,12 @@
-
 export type User = {
   id: string;
   email: string;
   firstName?: string;
   lastName?: string;
   role: UserRole;
-  organizationId?: string;
+  organizationId: string;
   permissions: Permission[];
+  language?: string;
 };
 
 export enum UserRole {

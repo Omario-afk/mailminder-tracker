@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
 import Logo from "@/assets/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,10 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Mail, Settings, LogOut, Menu, X } from "lucide-react";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const getInitials = () => {
     if (user?.firstName && user?.lastName) {
@@ -26,9 +29,9 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "Interface d'envoi", path: "/dashboard/send" },
-    { name: "Tab 2", path: "/dashboard/tab2" },
-    { name: "Tab 3", path: "/dashboard/tab3" },
+    { name: t('nav.sendInterface'), path: "/dashboard/send" },
+    { name: t('nav.tab2'), path: "/dashboard/tab2" },
+    { name: t('nav.tab3'), path: "/dashboard/tab3" },
   ];
 
   return (
@@ -65,7 +68,9 @@ const Navbar = () => {
         </nav>
 
         {/* User menu or login button */}
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageSelector />
+          
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -86,13 +91,13 @@ const Navbar = () => {
                 <DropdownMenuItem asChild>
                   <NavLink to="/messages" className="cursor-pointer flex w-full items-center">
                     <Mail className="mr-2 h-4 w-4" />
-                    <span>Messages</span>
+                    <span>{t('nav.messages')}</span>
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <NavLink to="/settings" className="cursor-pointer flex w-full items-center">
                     <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                    <span>{t('nav.settings')}</span>
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -101,13 +106,13 @@ const Navbar = () => {
                   onClick={() => logout()}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span>{t('common.logout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <NavLink to="/login">
-              <Button>Login</Button>
+              <Button>{t('common.login')}</Button>
             </NavLink>
           )}
         </div>
@@ -117,6 +122,10 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-border/40 animate-fade-in">
           <div className="container mx-auto px-4 py-3 flex flex-col space-y-2">
+            <div className="flex justify-end py-2">
+              <LanguageSelector />
+            </div>
+            
             {user && navItems.map((item) => (
               <NavLink
                 key={item.path}
@@ -137,7 +146,7 @@ const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Mail className="mr-2 h-4 w-4" />
-                  <span>Messages</span>
+                  <span>{t('nav.messages')}</span>
                 </NavLink>
                 <NavLink 
                   to="/settings" 
@@ -145,7 +154,7 @@ const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                  <span>{t('nav.settings')}</span>
                 </NavLink>
                 <Button 
                   variant="ghost" 
@@ -156,7 +165,7 @@ const Navbar = () => {
                   }}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span>{t('common.logout')}</span>
                 </Button>
               </>
             ) : (
@@ -165,7 +174,7 @@ const Navbar = () => {
                 className="py-3"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Button className="w-full">Login</Button>
+                <Button className="w-full">{t('common.login')}</Button>
               </NavLink>
             )}
           </div>

@@ -1,0 +1,111 @@
+
+{
+  "common": {
+    "loading": "Loading...",
+    "login": "Login",
+    "logout": "Log out",
+    "dashboard": "Dashboard",
+    "welcome": "Welcome, {{name}}",
+    "viewAll": "View All",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "error": "Error",
+    "success": "Success"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "forgotPassword": "Forgot Password?"
+  },
+  "dashboard": {
+    "welcome": "Welcome, {{name}}",
+    "overview": "Here's an overview of your document management system",
+    "totalDocuments": "Total Documents",
+    "pendingDocuments": "Pending Documents",
+    "processedDocuments": "Processed Documents",
+    "requiresAttention": "Requires Attention",
+    "allTime": "All time",
+    "awaitingAction": "Awaiting action",
+    "completed": "Completed",
+    "urgentItems": "Urgent items",
+    "recentDocuments": "Recent Documents",
+    "quickActions": "Quick Actions"
+  },
+  "sendInterface": {
+    "title": "Interface d'envoi",
+    "import": "Import",
+    "scan": "Scan",
+    "assignInstructions": "Assign Instructions",
+    "save": "Save",
+    "transmit": "Transmit",
+    "scope": "Scope",
+    "regional": "Regional",
+    "principal": "Principal",
+    "communal": "Communal",
+    "issuer": "Issuer",
+    "issueDate": "Issue Date",
+    "receptionDate": "Reception Date",
+    "receptionNumber": "Reception Number",
+    "subject": "Subject",
+    "meetingType": "Meeting Type",
+    "meeting": "Meeting",
+    "mission": "Mission",
+    "visit": "Visit",
+    "fep": "FEP",
+    "cpc": "CPC",
+    "date": "Date",
+    "location": "Location",
+    "time": "Time",
+    "saveAsDraft": "Save as Draft"
+  },
+  "nav": {
+    "sendInterface": "Interface d'envoi",
+    "tab2": "Tab 2",
+    "tab3": "Tab 3",
+    "messages": "Messages",
+    "settings": "Settings"
+  },
+  "landing": {
+    "hero": {
+      "tagline": "Physical Mail Management Simplified",
+      "title": "Document tracking for the modern workplace",
+      "description": "MailMinder helps organizations efficiently track, manage, and distribute physical mail and documents with a beautiful and intuitive interface.",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "features": {
+      "title": "Key Features",
+      "description": "MailMinder provides all the tools your organization needs to efficiently manage physical documents",
+      "tracking": {
+        "title": "Document Tracking",
+        "description": "Track the complete lifecycle of physical documents from receipt to archival."
+      },
+      "teamManagement": {
+        "title": "Team Management",
+        "description": "Create organizations and assign granular permissions to team members."
+      },
+      "secureStorage": {
+        "title": "Secure Storage",
+        "description": "Securely store document metadata and track history with our robust database."
+      }
+    },
+    "footer": {
+      "rights": "© {{year}} MailMinder. All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact"
+    }
+  },
+  "language": {
+    "name": "English",
+    "select": "Select language",
+    "en": "English",
+    "fr": "French",
+    "ar": "Arabic",
+    "es": "Spanish"
+  }
+}

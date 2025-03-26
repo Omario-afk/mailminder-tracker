@@ -12,6 +12,9 @@ import Dashboard from "@/pages/Dashboard";
 import SendInterface from "@/pages/SendInterface";
 import NotFound from "@/pages/NotFound";
 
+// Import i18n initialization file
+import "@/i18n";
+
 const queryClient = new QueryClient();
 
 const App = () => (

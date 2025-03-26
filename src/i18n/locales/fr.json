@@ -1,0 +1,111 @@
+
+{
+  "common": {
+    "loading": "Chargement...",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "welcome": "Bienvenue, {{name}}",
+    "viewAll": "Voir tout",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "submit": "Soumettre",
+    "error": "Erreur",
+    "success": "Succès"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "forgotPassword": "Mot de passe oublié ?"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {{name}}",
+    "overview": "Voici un aperçu de votre système de gestion de documents",
+    "totalDocuments": "Total des documents",
+    "pendingDocuments": "Documents en attente",
+    "processedDocuments": "Documents traités",
+    "requiresAttention": "Nécessite attention",
+    "allTime": "Tous les temps",
+    "awaitingAction": "En attente d'action",
+    "completed": "Terminé",
+    "urgentItems": "Éléments urgents",
+    "recentDocuments": "Documents récents",
+    "quickActions": "Actions rapides"
+  },
+  "sendInterface": {
+    "title": "Interface d'envoi",
+    "import": "Importer",
+    "scan": "Scanner",
+    "assignInstructions": "Affecter consigne",
+    "save": "Enregistrer",
+    "transmit": "Transmettre",
+    "scope": "Étendue",
+    "regional": "Régionale",
+    "principal": "Principal",
+    "communal": "Communal",
+    "issuer": "Émetteur",
+    "issueDate": "Date d'émission",
+    "receptionDate": "Date de réception",
+    "receptionNumber": "Numéro de réception",
+    "subject": "Objet",
+    "meetingType": "Type de réunion",
+    "meeting": "Réunion",
+    "mission": "Mission",
+    "visit": "Visite",
+    "fep": "FEP",
+    "cpc": "CPC",
+    "date": "Date",
+    "location": "Lieu",
+    "time": "Heure",
+    "saveAsDraft": "Enregistrer comme brouillon"
+  },
+  "nav": {
+    "sendInterface": "Interface d'envoi",
+    "tab2": "Onglet 2",
+    "tab3": "Onglet 3",
+    "messages": "Messages",
+    "settings": "Paramètres"
+  },
+  "landing": {
+    "hero": {
+      "tagline": "Gestion simplifiée du courrier physique",
+      "title": "Suivi de documents pour le lieu de travail moderne",
+      "description": "MailMinder aide les organisations à suivre, gérer et distribuer efficacement le courrier physique et les documents avec une interface belle et intuitive.",
+      "getStarted": "Commencer",
+      "learnMore": "En savoir plus",
+      "goToDashboard": "Aller au tableau de bord"
+    },
+    "features": {
+      "title": "Fonctionnalités clés",
+      "description": "MailMinder fournit tous les outils dont votre organisation a besoin pour gérer efficacement les documents physiques",
+      "tracking": {
+        "title": "Suivi des documents",
+        "description": "Suivez le cycle de vie complet des documents physiques, de la réception à l'archivage."
+      },
+      "teamManagement": {
+        "title": "Gestion d'équipe",
+        "description": "Créez des organisations et attribuez des permissions granulaires aux membres de l'équipe."
+      },
+      "secureStorage": {
+        "title": "Stockage sécurisé",
+        "description": "Stockez en toute sécurité les métadonnées des documents et suivez l'historique avec notre base de données robuste."
+      }
+    },
+    "footer": {
+      "rights": "© {{year}} MailMinder. Tous droits réservés.",
+      "privacy": "Confidentialité",
+      "terms": "Conditions",
+      "contact": "Contact"
+    }
+  },
+  "language": {
+    "name": "Français",
+    "select": "Sélectionner la langue",
+    "en": "Anglais",
+    "fr": "Français",
+    "ar": "Arabe",
+    "es": "Espagnol"
+  }
+}
