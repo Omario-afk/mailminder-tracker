@@ -1,9 +1,12 @@
+import { spawn } from 'child_process';
+import { kill } from 'process';
+import electron from 'electron';
+import waitOn from 'wait-on';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const { spawn } = require('child_process');
-const { kill } = require('process');
-const electron = require('electron');
-const waitOn = require('wait-on');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Start Vite dev server
 const viteProcess = spawn('npm', ['run', 'dev'], {
