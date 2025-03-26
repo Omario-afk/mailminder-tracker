@@ -9,7 +9,17 @@ import { useTranslation } from "react-i18next";
 
 const Layout = () => {
   const { loading } = useAuth();
-  const { t } = useTranslation();
+  
+  // Use try-catch to handle potential i18n initialization issues
+  let translationHook;
+  try {
+    translationHook = useTranslation();
+  } catch (error) {
+    console.error("Translation hook error:", error);
+    translationHook = { t: (key: string) => key };
+  }
+  
+  const { t } = translationHook;
 
   if (loading) {
     return (

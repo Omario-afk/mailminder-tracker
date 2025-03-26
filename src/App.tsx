@@ -14,31 +14,35 @@ import NotFound from "@/pages/NotFound";
 
 // Import i18n initialization file
 import "@/i18n";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@/i18n";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Index />} />
-              <Route path="login" element={<LoginForm />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="dashboard/send" element={<SendInterface />} />
-              <Route path="dashboard/tab2" element={<div className="container mx-auto px-4">Tab 2 Content</div>} />
-              <Route path="dashboard/tab3" element={<div className="container mx-auto px-4">Tab 3 Content</div>} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-        <Toaster />
-        <Sonner />
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+  <I18nextProvider i18n={i18n}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />
+                <Route path="login" element={<LoginForm />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard/send" element={<SendInterface />} />
+                <Route path="dashboard/tab2" element={<div className="container mx-auto px-4">Tab 2 Content</div>} />
+                <Route path="dashboard/tab3" element={<div className="container mx-auto px-4">Tab 3 Content</div>} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+          <Toaster />
+          <Sonner />
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </I18nextProvider>
 );
 
 export default App;
