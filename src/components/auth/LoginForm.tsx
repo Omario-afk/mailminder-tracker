@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,6 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,17 +24,11 @@ const LoginForm = () => {
 
     try {
       await login(email, password);
-      toast({
-        title: t('auth.loginSuccess'),
-        description: t('auth.welcomeBack'),
-      });
+      toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {
-      toast({
-        title: t('auth.loginFailed'),
-        description: t('auth.checkCredentials'),
-        variant: "destructive",
-      });
+      toast.error("Login failed. Please check your credentials.");
+      console.error("Login error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -45,7 +39,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4 pt-6">
           <div className="space-y-2">
-            <Label htmlFor="email">{t('auth.email')}</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -58,7 +52,7 @@ const LoginForm = () => {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">{t('auth.password')}</Label>
+              <Label htmlFor="password">Password</Label>
               <a
                 href="#"
                 className="text-sm text-primary hover:underline"
@@ -70,7 +64,7 @@ const LoginForm = () => {
                   });
                 }}
               >
-                {t('auth.forgotPassword')}
+                Forgot Password?
               </a>
             </div>
             <Input
@@ -82,10 +76,16 @@ const LoginForm = () => {
               className="bg-white/50"
             />
           </div>
+          <div className="text-sm text-center mt-4">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-primary hover:underline">
+              Sign up
+            </Link>
+          </div>
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('auth.loggingIn') : t('auth.signIn')}
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
         </CardFooter>
       </form>

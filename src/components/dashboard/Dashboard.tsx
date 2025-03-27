@@ -1,107 +1,182 @@
 
 import React from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { useOrganization } from '@/context/OrganizationContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Activity, BarChart3, FileText, Mail, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Mail, Users, Network, FileText, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+const mockData = [
+  { name: 'Jan', received: 4, sent: 2 },
+  { name: 'Feb', received: 3, sent: 1 },
+  { name: 'Mar', received: 5, sent: 4 },
+  { name: 'Apr', received: 2, sent: 3 },
+  { name: 'May', received: 6, sent: 2 },
+  { name: 'Jun', received: 8, sent: 5 },
+];
 
 const Dashboard = () => {
-  const { currentOrganization, templates, mailItems, members, loading } = useOrganization();
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  const stats = [
-    { title: 'Templates', value: templates?.length || 0, icon: <FileText className="h-5 w-5 text-muted-foreground" /> },
-    { title: 'Mail Items', value: mailItems?.length || 0, icon: <Mail className="h-5 w-5 text-muted-foreground" /> },
-    { title: 'Team Members', value: members?.length || 0, icon: <Users className="h-5 w-5 text-muted-foreground" /> },
-    { title: 'Activity', value: '24h', icon: <Activity className="h-5 w-5 text-muted-foreground" /> }
-  ];
+  const { user } = useAuth();
+  const { organizations, templates, mailItems, connections } = useOrganization();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
-    <div className="container px-4 py-6 mx-auto">
-      <h1 className="text-3xl font-bold tracking-tight">
-        {currentOrganization ? `${currentOrganization.name} Dashboard` : 'Dashboard'}
-      </h1>
-      <p className="text-muted-foreground mt-2">
-        Welcome to your Mail Tracker dashboard.
-      </p>
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
-        {stats.map((stat, i) => (
-          <Card key={i}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {stat.title}
-              </CardTitle>
-              {stat.icon}
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-            </CardContent>
-          </Card>
-        ))}
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">{t('dashboard.welcome', { name: user?.email?.split('@')[0] || '' })}</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card>
+          <CardContent className="p-6 flex flex-col items-center justify-center">
+            <div className="rounded-full p-3 bg-primary/10 mb-3">
+              <Mail className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">{mailItems.length}</h3>
+            <p className="text-muted-foreground">Mail Items</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6 flex flex-col items-center justify-center">
+            <div className="rounded-full p-3 bg-primary/10 mb-3">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">{templates.length}</h3>
+            <p className="text-muted-foreground">Templates</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6 flex flex-col items-center justify-center">
+            <div className="rounded-full p-3 bg-primary/10 mb-3">
+              <Users className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">{organizations.length}</h3>
+            <p className="text-muted-foreground">Organizations</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6 flex flex-col items-center justify-center">
+            <div className="rounded-full p-3 bg-primary/10 mb-3">
+              <Network className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold">{connections.length}</h3>
+            <p className="text-muted-foreground">Connections</p>
+          </CardContent>
+        </Card>
       </div>
-
-      <div className="mt-8">
-        <Tabs defaultValue="overview">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="reports">Reports</TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>
-                  Your mail tracking activity from the last 7 days
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center h-64">
-                  <BarChart3 className="h-16 w-16 text-muted-foreground/50" />
-                  <p className="ml-4 text-muted-foreground">Activity data will appear here</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="analytics" className="mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Analytics</CardTitle>
-                <CardDescription>
-                  Detailed performance analytics for your mail items
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center h-64">
-                  <p className="text-muted-foreground">Analytics will appear here</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="reports" className="mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Reports</CardTitle>
-                <CardDescription>
-                  Generated reports and summaries
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center h-64">
-                  <p className="text-muted-foreground">Reports will appear here</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle>Mail Activity</CardTitle>
+            <CardDescription>Mail sent and received over time</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={mockData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="received" name="Received" fill="#3b82f6" />
+                  <Bar dataKey="sent" name="Sent" fill="#10b981" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>Commonly used tasks</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => navigate('/mail')}
+            >
+              <Mail className="mr-2 h-4 w-4" />
+              Track New Mail
+            </Button>
+            
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => navigate('/templates/new')}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Create Template
+            </Button>
+            
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => navigate('/organizations/new')}
+            >
+              <Users className="mr-2 h-4 w-4" />
+              Create Organization
+            </Button>
+            
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => navigate('/network')}
+            >
+              <Network className="mr-2 h-4 w-4" />
+              Manage Network
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <div className="grid grid-cols-1 gap-6 mb-8">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Recent Mail Items</CardTitle>
+              <CardDescription>Latest mail items tracked in the system</CardDescription>
+            </div>
+            <Button size="sm" variant="outline" onClick={() => navigate('/mail')}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add New
+            </Button>
+          </CardHeader>
+          <CardContent>
+            {mailItems.length > 0 ? (
+              <div className="space-y-4">
+                {mailItems.slice(0, 5).map((item) => (
+                  <div key={item.id} className="flex items-center justify-between border-b pb-4">
+                    <div>
+                      <h4 className="font-medium">{item.properties?.subject || 'Untitled'}</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Template: {templates.find(t => t.id === item.templateId)?.name || 'Unknown'}
+                      </p>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">No mail items yet. Create your first one!</p>
+                <Button className="mt-4" onClick={() => navigate('/mail')}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Mail Item
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

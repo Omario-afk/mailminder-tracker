@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Organization, OrganizationMember } from '@/types';
@@ -50,7 +49,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
   const fetchOrganizationData = async (organizationId: string) => {
     try {
       setLoading(true);
-      // Fetch organization details
       const { data: org, error: orgError } = await supabase
         .from('organizations')
         .select('*')
@@ -59,7 +57,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
 
       if (orgError) throw orgError;
       
-      // Convert database fields to match our types
       const mappedOrg: Organization = {
         id: org.id,
         name: org.name,
@@ -71,7 +68,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       
       setCurrentOrganization(mappedOrg);
 
-      // Fetch members
       const { data: membersData, error: membersError } = await supabase
         .from('organization_members')
         .select('*')
@@ -79,7 +75,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
 
       if (membersError) throw membersError;
       
-      // Map member data to match our type
       const mappedMembers: OrganizationMember[] = (membersData || []).map(m => ({
         id: m.id,
         userId: m.user_id,
@@ -90,8 +85,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       
       setMembers(mappedMembers);
 
-      // For templates, mail items and connections, we'll just set mock data for now
-      // until the actual tables exist
       setTemplates([]);
       setMailItems([]);
       setConnections([]);
@@ -118,7 +111,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
 
     if (error) throw error;
     
-    // Convert to our expected format
     const newOrg: Organization = {
       id: data.id,
       name: data.name,
@@ -133,7 +125,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
   };
 
   const updateOrganization = async (id: string, updates: Partial<Organization>) => {
-    // Convert from our type to database fields
     const dbUpdates: any = {};
     if (updates.name) dbUpdates.name = updates.name;
     if (updates.description !== undefined) dbUpdates.description = updates.description;
@@ -144,7 +135,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       .eq('id', id);
 
     if (error) throw error;
-    // Refresh organization data
     if (user?.organizationId) {
       fetchOrganizationData(id);
     }
@@ -164,8 +154,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
   const inviteMember = async (email: string, role: 'admin' | 'member') => {
     if (!currentOrganization) throw new Error('No organization selected');
     
-    // Mock implementation for now
-    // In a real implementation, you'd first find the user ID for this email
     const mockUserId = `mock-${Date.now()}`;
     
     const { error } = await supabase
@@ -177,7 +165,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       });
 
     if (error) throw error;
-    // Refresh members
     if (currentOrganization) {
       fetchOrganizationData(currentOrganization.id);
     }
@@ -190,7 +177,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       .eq('id', memberId);
 
     if (error) throw error;
-    // Refresh members
     if (currentOrganization) {
       fetchOrganizationData(currentOrganization.id);
     }
@@ -203,18 +189,14 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
       .eq('id', memberId);
 
     if (error) throw error;
-    // Refresh members
     if (currentOrganization) {
       fetchOrganizationData(currentOrganization.id);
     }
   };
 
-  // Mock implementations for now until we have the real tables
-  
   const createTemplate = async (name: string, description?: string, isNetworkShared: boolean = false) => {
     if (!currentOrganization) throw new Error('No organization selected');
     
-    // Mock implementation
     const newTemplate = {
       id: `template-${Date.now()}`,
       name,
@@ -227,11 +209,9 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
     };
     
     setTemplates([...templates, newTemplate]);
-    return newTemplate;
   };
 
   const updateTemplate = async (id: string, data: any) => {
-    // Mock implementation
     const updatedTemplates = templates.map(template => 
       template.id === id ? { ...template, ...data, updatedAt: new Date() } : template
     );
@@ -246,7 +226,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
   const createMailItem = async (templateId: string, properties: Record<string, string>) => {
     if (!currentOrganization) throw new Error('No organization selected');
     
-    // Mock implementation
     const newMailItem = {
       id: `mail-${Date.now()}`,
       templateId,
@@ -266,7 +245,6 @@ export const OrganizationProvider = ({ children }: { children: React.ReactNode }
   const createConnection = async (organizationId: string) => {
     if (!currentOrganization) throw new Error('No organization selected');
     
-    // Mock implementation
     const newConnection = {
       id: `connection-${Date.now()}`,
       orgId: currentOrganization.id,

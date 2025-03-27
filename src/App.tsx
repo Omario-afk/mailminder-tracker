@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
@@ -12,6 +13,7 @@ import NetworkConnections from '@/components/network/NetworkConnections';
 import MailTracking from '@/components/mail/MailTracking';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import LoginPage from '@/components/auth/LoginPage';
+import SignupPage from '@/pages/SignupPage';
 import { AuthProvider } from '@/context/AuthContext';
 import { OrganizationProvider } from '@/context/OrganizationContext';
 import '@/i18n/config';
@@ -23,6 +25,7 @@ const App = () => {
         <OrganizationProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route
               path="/"
               element={
