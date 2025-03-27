@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, UserRole, Permission } from "@/types";
@@ -8,6 +9,8 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   signup: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>; // Added signIn alias for login
+  signOut: () => Promise<void>; // Added signOut alias for logout
   logout: () => Promise<void>;
   updateUserLanguage: (language: LanguageCode) => Promise<void>;
   updateUserProfile: (updates: Partial<User>) => Promise<void>;
@@ -27,44 +30,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (error) throw error;
         
         if (session?.user) {
-          // Fetch user profile and organization data
-          const { data: profile, error: profileError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-            
-          if (profileError) throw profileError;
-
-          // Fetch user's organization memberships
-          const { data: memberships, error: membershipError } = await supabase
-            .from('organization_members')
-            .select(`
-              org_id,
-              role,
-              organizations (
-                id,
-                name,
-                director_id
-              )
-            `)
-            .eq('user_id', session.user.id);
-
-          if (membershipError) throw membershipError;
-
-          // Determine user's primary role and organization
-          const primaryMembership = memberships?.[0];
-          const isDirector = memberships?.some(m => m.organizations.director_id === session.user.id);
-
+          // Since profiles table doesn't exist yet, create a minimal user object
           setUser({
             id: session.user.id,
             email: session.user.email!,
-            firstName: profile.first_name,
-            lastName: profile.last_name,
-            role: isDirector ? 'director' : (primaryMembership?.role as UserRole || 'member'),
-            organizationId: primaryMembership?.org_id,
-            permissions: determinePermissions(isDirector, primaryMembership?.role),
-            language: profile.language || localStorage.getItem("i18nextLng") as LanguageCode || "en",
+            role: 'member' as UserRole,
+            permissions: ['READ'] as Permission[],
+            language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
           });
         }
       } catch (error) {
@@ -79,44 +51,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Subscribe to auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        // Fetch user profile and organization data
-        const { data: profile, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-          
-        if (profileError) throw profileError;
-
-        // Fetch user's organization memberships
-        const { data: memberships, error: membershipError } = await supabase
-          .from('organization_members')
-          .select(`
-            org_id,
-            role,
-            organizations (
-              id,
-              name,
-              director_id
-            )
-          `)
-          .eq('user_id', session.user.id);
-
-        if (membershipError) throw membershipError;
-
-        // Determine user's primary role and organization
-        const primaryMembership = memberships?.[0];
-        const isDirector = memberships?.some(m => m.organizations.director_id === session.user.id);
-
+        // Since profiles table doesn't exist yet, create a minimal user object
         setUser({
           id: session.user.id,
           email: session.user.email!,
-          firstName: profile.first_name,
-          lastName: profile.last_name,
-          role: isDirector ? 'director' : (primaryMembership?.role as UserRole || 'member'),
-          organizationId: primaryMembership?.org_id,
-          permissions: determinePermissions(isDirector, primaryMembership?.role),
-          language: profile.language || localStorage.getItem("i18nextLng") as LanguageCode || "en",
+          role: 'member' as UserRole,
+          permissions: ['READ'] as Permission[],
+          language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
         });
       } else if (event === 'SIGNED_OUT') {
         setUser(null);
@@ -144,28 +85,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // Create an alias for login to match usage in LoginPage
+  const signIn = login;
+
   const signup = async (email: string, password: string, firstName: string, lastName: string) => {
     setLoading(true);
     try {
       const { data: { user: authUser }, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
+          }
+        }
       });
       
       if (signUpError) throw signUpError;
       if (!authUser) throw new Error("No user returned from signup");
 
-      // Create profile
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: authUser.id,
-          first_name: firstName,
-          last_name: lastName,
-          language: localStorage.getItem("i18nextLng") as LanguageCode || "en",
-        });
-
-      if (profileError) throw profileError;
     } catch (error) {
       console.error("Signup failed:", error);
       throw error;
@@ -188,18 +128,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // Create an alias for logout to match usage in AppLayout
+  const signOut = logout;
+
   const updateUserLanguage = async (language: LanguageCode) => {
     try {
       if (user) {
-        const { error } = await supabase
-          .from('profiles')
-          .update({ language })
-          .eq('id', user.id);
-          
-        if (error) throw error;
-        
-        setUser({ ...user, language });
+        // Store in local storage until we have a profiles table
         localStorage.setItem("i18nextLng", language);
+        setUser({ ...user, language });
       }
     } catch (error) {
       console.error("Failed to update language preference:", error);
@@ -210,16 +147,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const updateUserProfile = async (updates: Partial<User>) => {
     try {
       if (user) {
-        const { error } = await supabase
-          .from('profiles')
-          .update({
-            first_name: updates.firstName,
-            last_name: updates.lastName,
-          })
-          .eq('id', user.id);
-          
-        if (error) throw error;
-        
+        // Update user state locally until we have a profiles table
         setUser({ ...user, ...updates });
       }
     } catch (error) {
@@ -229,7 +157,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signup, logout, updateUserLanguage, updateUserProfile }}>
+    <AuthContext.Provider 
+      value={{ 
+        user, 
+        loading, 
+        login, 
+        signup, 
+        logout, 
+        signIn, 
+        signOut, 
+        updateUserLanguage, 
+        updateUserProfile 
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

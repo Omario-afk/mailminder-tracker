@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useOrganization } from '@/context/OrganizationContext';
 import { Button } from '@/components/ui/button';
@@ -180,7 +181,7 @@ const MemberManagement = () => {
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-2">
                     <Shield className="h-4 w-4" />
-                    {member.userName}
+                    {member.userId} {/* Using userId instead of userName which doesn't exist */}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -198,7 +199,7 @@ const MemberManagement = () => {
                   </Select>
                 </TableCell>
                 <TableCell>
-                  {new Date(member.joinedAt).toLocaleDateString()}
+                  {member.joinedAt.toLocaleDateString()}
                 </TableCell>
                 <TableCell className="text-right">
                   <Button
@@ -218,4 +219,4 @@ const MemberManagement = () => {
   );
 };
 
-export default MemberManagement; 
+export default MemberManagement;

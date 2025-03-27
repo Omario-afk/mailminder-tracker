@@ -34,6 +34,7 @@ import * as z from 'zod';
 import { Plus, FileText, Settings, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 const templateSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -47,6 +48,7 @@ const TemplateManagement = () => {
   const { templates, createTemplate, updateTemplate, deleteTemplate, loading } = useOrganization();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const form = useForm<TemplateFormValues>({
     resolver: zodResolver(templateSchema),
@@ -221,4 +223,4 @@ const TemplateManagement = () => {
   );
 };
 
-export default TemplateManagement; 
+export default TemplateManagement;

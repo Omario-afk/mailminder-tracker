@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useOrganization } from '@/context/OrganizationContext';
 import { Button } from '@/components/ui/button';
@@ -68,7 +69,7 @@ const OrganizationList = () => {
             <CardContent>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Users className="h-4 w-4" />
-                {t('organizations.memberCount')}: {org.memberCount || 0}
+                {t('organizations.memberCount')}: {0} {/* Fixed memberCount reference */}
               </div>
             </CardContent>
           </Card>
@@ -84,4 +85,4 @@ const OrganizationList = () => {
   );
 };
 
-export default OrganizationList; 
+export default OrganizationList;

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -14,9 +13,22 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { DocumentScope, DocumentType } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, PlusCircle, FilePlus, Save, Send } from "lucide-react";
+
+enum DocumentScope {
+  REGIONAL = "regional",
+  PRINCIPAL = "principal",
+  COMMUNAL = "communal"
+}
+
+enum DocumentType {
+  REUNION = "reunion",
+  MISSION = "mission",
+  VISITE = "visite",
+  FEP = "fep",
+  CPC = "cpc"
+}
 
 const SendInterface = () => {
   const { user } = useAuth();
@@ -50,8 +62,6 @@ const SendInterface = () => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // In a real app, this would upload the file to a server and get a URL back
-      // For now, we'll create a local object URL
       const objectUrl = URL.createObjectURL(file);
       setDocumentPreview(objectUrl);
       toast({
@@ -62,13 +72,11 @@ const SendInterface = () => {
   };
 
   const handleScan = () => {
-    // In a real app, this would trigger a scanner
     toast({
       title: "Scanner activated",
       description: "Scanning document... (This would connect to a physical scanner in a real app)"
     });
     
-    // Simulate a scan result
     setTimeout(() => {
       setDocumentPreview("/placeholder.svg");
       toast({
@@ -111,7 +119,6 @@ const SendInterface = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Document Preview */}
         <div className="lg:col-span-1">
           <Card className="glass-card h-full flex flex-col">
             <CardContent className="p-6 flex-1 flex flex-col">
@@ -159,7 +166,6 @@ const SendInterface = () => {
           </Card>
         </div>
 
-        {/* Document Information Form */}
         <div className="lg:col-span-2">
           <Card className="glass-card">
             <CardContent className="p-6">
