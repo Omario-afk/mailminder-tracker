@@ -3,18 +3,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, UserRole, Permission } from "@/types";
 import { LanguageCode } from "@/i18n";
-
-interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>; // Added signIn alias for login
-  signOut: () => Promise<void>; // Added signOut alias for logout
-  logout: () => Promise<void>;
-  updateUserLanguage: (language: LanguageCode) => Promise<void>;
-  updateUserProfile: (updates: Partial<User>) => Promise<void>;
-}
+import { AuthContextType } from "@/types/auth";
+import { determinePermissions } from "@/utils/authUtils";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -182,21 +172,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-// Helper function to determine user permissions based on role
-function determinePermissions(isDirector: boolean, role?: string): Permission[] {
-  const basePermissions: Permission[] = ['READ'];
-  
-  if (isDirector) {
-    return [...basePermissions, 'WRITE', 'DELETE', 'MANAGE_USERS', 'MANAGE_TEMPLATES'];
-  }
-  
-  switch (role) {
-    case 'admin':
-      return [...basePermissions, 'WRITE', 'DELETE', 'MANAGE_TEMPLATES'];
-    case 'member':
-      return [...basePermissions, 'WRITE'];
-    default:
-      return basePermissions;
-  }
-}
