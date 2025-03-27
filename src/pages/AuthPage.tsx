@@ -18,10 +18,10 @@ const AuthPage = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            Welcome to MailMinder
+            {t('auth.welcome', 'Welcome to MailMinder')}
           </CardTitle>
           <CardDescription className="text-center">
-            Sign in to your account or create a new one
+            {t('auth.signInOrSignUp', 'Sign in to your account or create a new one')}
           </CardDescription>
         </CardHeader>
         <TabSelector

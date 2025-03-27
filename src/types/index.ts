@@ -1,3 +1,4 @@
+
 export type UserRole = 'director' | 'admin' | 'member';
 export type Permission = 'READ' | 'WRITE' | 'DELETE' | 'MANAGE_USERS' | 'MANAGE_TEMPLATES';
 export type MailStatus = 'sent' | 'received' | 'in-transit';
@@ -75,6 +76,10 @@ export type MailEntry = {
   receivedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
+  // Enhanced properties
+  senderEmail?: string;
+  organizationName?: string;
+  templateName?: string;
 };
 
 export type MailPropertyValue = {
@@ -124,6 +129,19 @@ export type Database = {
         Row: MailPropertyValue;
         Insert: Omit<MailPropertyValue, 'id' | 'createdAt' | 'updatedAt'>;
         Update: Partial<Omit<MailPropertyValue, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      profiles: {
+        Row: {
+          id: string;
+          first_name?: string;
+          last_name?: string;
+          avatar_url?: string;
+          language?: string;
+          created_at: Date;
+          updated_at: Date;
+        };
+        Insert: Omit<{ id: string; first_name?: string; last_name?: string; avatar_url?: string; language?: string }, 'created_at' | 'updated_at'>;
+        Update: Partial<Omit<{ id: string; first_name?: string; last_name?: string; avatar_url?: string; language?: string }, 'id' | 'created_at' | 'updated_at'>>;
       };
     };
   };

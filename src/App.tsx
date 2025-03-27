@@ -12,8 +12,8 @@ import TemplateSettings from '@/components/templates/TemplateSettings';
 import NetworkConnections from '@/components/network/NetworkConnections';
 import MailTracking from '@/components/mail/MailTracking';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
-import LoginPage from '@/components/auth/LoginPage';
-import SignupPage from '@/pages/SignupPage';
+import AuthPage from '@/pages/AuthPage';
+import SendInterface from '@/pages/SendInterface';
 import { AuthProvider } from '@/context/AuthContext';
 import { OrganizationProvider } from '@/context/OrganizationContext';
 import '@/i18n/config';
@@ -24,8 +24,8 @@ const App = () => {
       <AuthProvider>
         <OrganizationProvider>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/signup" element={<AuthPage />} />
             <Route
               path="/"
               element={
@@ -43,6 +43,7 @@ const App = () => {
                       <Route path="/templates/:templateId/settings" element={<TemplateSettings />} />
                       <Route path="/network" element={<NetworkConnections />} />
                       <Route path="/mail" element={<MailTracking />} />
+                      <Route path="/mail/send" element={<SendInterface />} />
                     </Routes>
                   </AppLayout>
                 </ProtectedRoute>

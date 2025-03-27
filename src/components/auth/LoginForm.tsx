@@ -58,10 +58,8 @@ const LoginForm = () => {
                 className="text-sm text-primary hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  toast({
-                    title: t('auth.passwordReset'),
-                    description: t('auth.passwordResetDescription'),
-                  });
+                  toast.info(t('auth.passwordReset', 'Password reset coming soon'),
+                   { description: t('auth.passwordResetDescription', 'Please check back later for this feature.') });
                 }}
               >
                 Forgot Password?
