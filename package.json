@@ -48,11 +48,11 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "date-fns": "^3.3.1",
-    "electron": "^28.1.4",
-    "electron-builder": "^24.9.1",
+    "electron": "^35.1.1",
+    "electron-builder": "^26.0.12",
     "embla-carousel-react": "^8.0.0-rc17",
     "i18next": "^23.7.16",
     "i18next-browser-languagedetector": "^7.2.0",
@@ -71,7 +71,7 @@
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.0",
-    "wait-on": "^7.2.0",
+    "wait-on": "^8.0.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {

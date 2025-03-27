@@ -9,7 +9,295 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      mail_entries: {
+        Row: {
+          created_at: string
+          id: string
+          org_id: string
+          received_at: string | null
+          recipient_address: string | null
+          recipient_name: string | null
+          sender_id: string
+          status: string
+          template_id: string
+          tracking_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id: string
+          received_at?: string | null
+          recipient_address?: string | null
+          recipient_name?: string | null
+          sender_id: string
+          status: string
+          template_id: string
+          tracking_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id?: string
+          received_at?: string | null
+          recipient_address?: string | null
+          recipient_name?: string | null
+          sender_id?: string
+          status?: string
+          template_id?: string
+          tracking_number?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mail_entries_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mail_entries_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "mail_property_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mail_property_definitions: {
+        Row: {
+          created_at: string
+          id: string
+          is_required: boolean | null
+          name: string
+          options: Json | null
+          template_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_required?: boolean | null
+          name: string
+          options?: Json | null
+          template_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_required?: boolean | null
+          name?: string
+          options?: Json | null
+          template_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mail_property_definitions_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "mail_property_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mail_property_templates: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_network_shared: boolean | null
+          name: string
+          org_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_network_shared?: boolean | null
+          name: string
+          org_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_network_shared?: boolean | null
+          name?: string
+          org_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mail_property_templates_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mail_property_values: {
+        Row: {
+          created_at: string
+          id: string
+          mail_id: string
+          property_def_id: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mail_id: string
+          property_def_id: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mail_id?: string
+          property_def_id?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mail_property_values_mail_id_fkey"
+            columns: ["mail_id"]
+            isOneToOne: false
+            referencedRelation: "mail_entries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mail_property_values_property_def_id_fkey"
+            columns: ["property_def_id"]
+            isOneToOne: false
+            referencedRelation: "mail_property_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      network_connections: {
+        Row: {
+          created_at: string
+          id: string
+          org_id_1: string
+          org_id_2: string
+          shared_template_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id_1: string
+          org_id_2: string
+          shared_template_id?: string | null
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id_1?: string
+          org_id_2?: string
+          shared_template_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "network_connections_org_id_1_fkey"
+            columns: ["org_id_1"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "network_connections_org_id_2_fkey"
+            columns: ["org_id_2"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "network_connections_shared_template_id_fkey"
+            columns: ["shared_template_id"]
+            isOneToOne: false
+            referencedRelation: "mail_property_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_members: {
+        Row: {
+          id: string
+          joined_at: string
+          org_id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          org_id: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          org_id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_members_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          created_at: string
+          description: string | null
+          director_id: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          director_id: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          director_id?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
